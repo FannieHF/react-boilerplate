@@ -12,6 +12,7 @@ const getVersion = packageName => {
 };
 
 module.exports  = {
+    mode: 'production',
     entry: {
         app: path.join(src, 'index.js'),
     },
@@ -19,6 +20,10 @@ module.exports  = {
         chunkFilename: '[name].[chunkhash:8].js',
         filename: '[name].[hash:8].js',
         path: dist,
+    },
+    externals: {
+        react: 'React',
+        'react-dom': 'ReactDOM',
     },
     optimization: {
         nodeEnv: process.argv.mode
@@ -85,8 +90,12 @@ module.exports  = {
                         localIdentName: "[name]_[local]_[hash:base64:5]",
                         }
                     },
-                    'postcss-loader',
-                    'sass-loader',
+                    {
+                        loader: 'postcss-loader',
+                    },
+                    {
+                        loader: 'sass-loader',
+                    },
                 ]
             }
 
